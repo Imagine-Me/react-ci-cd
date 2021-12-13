@@ -4,9 +4,11 @@ on:
   pull_request:
     branches:
       - develop
+      - main
   push:
     branches:
       - develop
+      - main
 
 
 jobs:
@@ -25,7 +27,10 @@ jobs:
           CI: true
       - name: Build project
         if: github.event_name == 'push'
-        run: npm run build
-      - name: Deploy to Staging
-        if: github.event_name == 'push'
+        run: npm run Build
+      - name: Create a release
+        if: github.event_name == 'push' && github.ref='refs/head/main'
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
