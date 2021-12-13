@@ -27,7 +27,7 @@ jobs:
           CI: true
       - name: Build project
         if: github.event_name == 'push'
-        run: npm run Build
+        run: npm run build
       - name: Create a release
         if: github.event_name == 'push' && github.ref=='refs/head/main'
         run: npx semantic-release
